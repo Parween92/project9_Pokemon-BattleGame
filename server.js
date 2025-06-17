@@ -7,6 +7,7 @@ import dbMongo from "./db/index.js";
 import errorHandler from "./middleware/errorhandler.js";
 import ErrorResponse from "./utils/ErrorResponse.js";
 import leaderboardRouter from "./routers/leaderboardRouter.js";
+import pokemonRouter from "./routers/pokemonRouter.js";
 
 await dbMongo(); // DB verbinden
 
@@ -24,10 +25,12 @@ app.get("/", async (req, res) => {
 });
 
 app.use("/leaderboard", leaderboardRouter);
+app.use("/pokemon", pokemonRouter);
+
 //Fallback für ungültige oder nicht existierende Routen
-// app.use("*", (req, res, next) => {
-//   next(new ErrorResponse(`Check route. You used ${req.originalUrl}`, 404));
-// });
+app.use(/.*/, (req, res, next) => {
+  next(new ErrorResponse(`Check route. You used ${req.originalUrl}`, 404));
+});
 
 app.use(errorHandler);
 
