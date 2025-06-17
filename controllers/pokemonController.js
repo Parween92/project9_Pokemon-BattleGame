@@ -1,18 +1,28 @@
-import Pokemon from "../models/Pokemon.js";
-import ErrorResponse from "../utils/ErrorResponse.js";
+import axios from "axios";
 
 const getRandomPokemon = async (req, res) => {
-  // Hier müssen die Anzahl der  Pokémon in der MongoDB-Collection zählen
-  const count = await Pokemon.countDocuments();
-  if (count === 0) throw new ErrorResponse("No Pokémon found", 404);
+  const id = Math.floor(Math.random() * 151) + 1;
 
-  // random Index
-  const randomIndex = Math.floor(Math.random() * count);
+  try {
+    const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
+    const data = response.data;
 
-  // Ein Pokémon zufällig holen
-  const randomPokemon = await Pokemon.findOne().skip(randomIndex);
+    const sprite =
+      data.sprites.versions["generation-v"]["black-white"].animated.front_default;
 
-  res.json(randomPokemon);
+    res.json({
+      id: data.id,
+      name: data.name,
+      hp: data.stats.find((s) => s.stat.name === "hp")?.base_stat || 40,
+      sprite,
+      xp: 100,
+    });
+  } catch (err) {
+    console.error("❌ Fehler beim Abrufen des Pokémon:", err.message);
+    res.status(500).json({ message: "Pokémon konnte nicht geladen werden" });
+  }
 };
 
 export default getRandomPokemon;
+
+
