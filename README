@@ -1,0 +1,2 @@
+//ErrorResponse = eiegne Fehler erzeugen mit Message + Statuscode
+//errorHandler = Fehler behandeln und an Client schicken
