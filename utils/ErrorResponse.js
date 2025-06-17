@@ -1,7 +1,7 @@
 class ErrorResponse extends Error {
   constructor(message, statusCode) {
-    super(message); // hier muss die Nachricht vom normalen Error übernohmen
-    this.statusCode = statusCode; // eigenen Statuscode speichern
+    super(message); // Nachricht vom normalen Error übernehmen
+    this.statusCode = statusCode; // dann eigenen Statuscode speichern
   }
 
   //Fehlerinfos als Objekt zurückgeben
