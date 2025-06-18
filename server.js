@@ -24,8 +24,8 @@ app.get("/", async (req, res) => {
   res.json({ message: "Running", dbResponse });
 });
 
-app.use("/leaderboard", leaderboardRouter);
-app.use("/pokemon", pokemonRouter);
+app.use("/api/leaderboard", leaderboardRouter);
+app.use("/api/pokemon", pokemonRouter);
 
 //Fallback für ungültige oder nicht existierende Routen
 app.use(/.*/, (req, res, next) => {
