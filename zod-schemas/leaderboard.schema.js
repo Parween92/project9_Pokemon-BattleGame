@@ -11,6 +11,10 @@ const leaderboardSchema = z.object({
     .min(0, "Score darf nicht negativ sein")
     .max(100000, "Score ist zu hoch"),
 
+  anzahl: z
+    .number()
+    .min(0, "Anzahl darf nicht negativ sein"),
+
   date: z
     .string()
     .refine((val) => !isNaN(Date.parse(val)), {
@@ -18,4 +22,5 @@ const leaderboardSchema = z.object({
     })
     .transform((val) => new Date(val)),
 });
+
 export default leaderboardSchema;
