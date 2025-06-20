@@ -7,8 +7,8 @@ const getRandomPokemon = async (req, res) => {
     const response = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`);
     const data = response.data;
 
-    const sprite =
-      data.sprites.versions["generation-v"]["black-white"].animated.front_default;
+    const sprite = data.sprites.versions["generation-v"]["black-white"].animated.front_default;
+    const cry = data.cries?.latest || data.cries?.legacy || null;
 
     res.json({
       id: data.id,
@@ -16,6 +16,7 @@ const getRandomPokemon = async (req, res) => {
       hp: data.stats.find((s) => s.stat.name === "hp")?.base_stat || 40,
       sprite,
       xp: 100,
+      cry,
     });
   } catch (err) {
     console.error("❌ Fehler beim Abrufen des Pokémon:", err.message);
@@ -24,5 +25,3 @@ const getRandomPokemon = async (req, res) => {
 };
 
 export default getRandomPokemon;
-
-

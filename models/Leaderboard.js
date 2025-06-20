@@ -16,6 +16,11 @@ const leaderboardSchema = new Schema({
     default: Date.now,
     required: true,
   },
+  anzahl: {
+  type: Number,
+  required: true,
+  min: 0,
+},
 });
 
 const Leaderboard = model("Leaderboard", leaderboardSchema);
