@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 export default async function dbMongo() {
   try {
-    const mongo = await mongoose.connect(process.env.MONGO_URI, {
+    const mongo = await mongoose.connect(process.env.Mongo_URI, {
       dbName: "PokemonGame",
     });
     console.log(chalk.cyan(` DB connected to ${mongo.connection.name}`));
